@@ -90,7 +90,12 @@ function defuzz(firing_strengths::Vector{AbstractFloat}, rules::Vector{Rule},	ou
         for i in 1:length(rules)
             push!(mean_vec, output_mfs_dict[rules[i].output_mf].mean_at(firing_strengths[i]))
         end
-        (mean_vec' * firing_strengths)[1] / sum(firing_strengths)
+        sumfire = sum(firing_strengths)
+        if sumfire != 0               
+          (mean_vec' * firing_strengths)[1] / sum(firing_strengths)
+        else
+          mean_vec
+        end
     end
 
 end
